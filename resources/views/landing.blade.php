@@ -12,10 +12,10 @@
             </div>
             <nav class="pill-nav">
                 <a class="pill-nav__link is-active" href="#">Home</a>
-                <a class="pill-nav__link" href="#">About</a>
+                <a class="pill-nav__link" href="/about">About</a>
                 <a class="pill-nav__link" href="#">Contact</a>
-                <a class="pill-nav__link" href="#">Platform</a>
-                <a class="pill-nav__link" href="#">Publications</a>
+                <a class="pill-nav__link" href="/platform">Platform</a>
+                <a class="pill-nav__link" href="/publications">Publications</a>
             </nav>
         </header>
 
@@ -23,7 +23,6 @@
             <section class="hero-visual">
                 <div class="hero-media">
                     <img class="hero-image" src="{{ asset('assets/hero.png') }}" alt="Medical illustration">
-                    <div class="hero-glow"></div>
                 </div>
                 <button class="scroll-hint" type="button" aria-label="Scroll">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -80,5 +79,6 @@
                 </div>
             </section>
         </main>
+
     </div>
 @endsection
