@@ -11,7 +11,6 @@
         <nav class="pill-nav">
             <a class="pill-nav__link" href="/">Home</a>
             <a class="pill-nav__link" href="/about">About</a>
-            <a class="pill-nav__link" href="/about#contact">Contact</a>
             <a class="pill-nav__link" href="/platform">Platform</a>
             <a class="pill-nav__link is-active" href="/publications">Publications</a>
         </nav>
