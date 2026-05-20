@@ -1272,8 +1272,9 @@ body.page {
     .pub-hero__image { width: 100%; }
     .pub-hero__photo { width: 100%; height: 240px; }
     .pub-challenge, .pub-regional, .pub-values, .pub-papers { padding: 3rem 1.25rem; }
-    .pub-region, .pub-region--reverse { grid-template-columns: 1fr; }
-    .pub-region--reverse .pub-region__map { order: -1; }
+    .pub-region, .pub-region--reverse { flex-direction: column; width: 100%; }
+    .pub-region--reverse { flex-direction: column-reverse; }
+    .pub-region img { width: 140px; }
     .map-svg { width: 130px; }
     .doc-sheet { padding: 2rem 1.5rem; }
 }
@@ -1397,5 +1398,91 @@ body.page {
 @media (max-width: 768px) {
     .pf-page {
         padding: 2rem 1.25rem 4rem;
+    }
+}
+
+/* ─── Global Mobile (max-width: 768px) ───────────────────────── */
+@media (max-width: 768px) {
+
+    /* Topbar */
+    .topbar {
+        height: auto;
+        padding: 0.6rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    /* Logo */
+    .brand-mark {
+        height: 60px;
+    }
+
+    /* Nav — wrap and shrink */
+    .pill-nav {
+        flex-wrap: wrap;
+        gap: 0.2rem;
+        justify-content: center;
+        width: 100%;
+        padding-bottom: 0.4rem;
+    }
+
+    .pill-nav__link {
+        font-size: .78rem;
+        padding: .35rem .75rem;
+    }
+
+    /* Hero — stack vertically */
+    .hero {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 100svh;
+    }
+
+    .hero-visual {
+        height: 45vw;
+        min-height: 220px;
+        max-height: 320px;
+        -webkit-mask-image: none;
+        mask-image: none;
+    }
+
+    .hero-content {
+        padding: 2rem 1.25rem;
+        gap: 1rem;
+    }
+
+    .hero-content h1 {
+        font-size: clamp(1.4rem, 5vw, 2rem);
+    }
+
+    /* CTA buttons */
+    .cta {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    /* Social proof */
+    .social-proof {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: flex-start;
+    }
+
+    /* Risk card */
+    .risk-card {
+        left: 0.75rem;
+        bottom: 0.75rem;
+        min-width: 130px;
+    }
+
+    /* Page sections padding */
+    .page-wrap {
+        overflow-x: hidden;
     }
 }
