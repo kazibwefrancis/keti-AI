@@ -6,9 +6,8 @@
         <header class="topbar">
             <div class="brand">
                 <div class="brand-mark">
-                    <img src="https://i.pravatar.cc/64?img=47" alt="Keti AI" style="width:100%;height:100%;object-fit:cover;">
+                    <img src="{{ asset('assets/keti-logo.png') }}" alt="Keti AI">
                 </div>
-                <div class="brand-name">Keti AI</div>
             </div>
             <nav class="pill-nav">
                 <a class="pill-nav__link is-active" href="#">Home</a>

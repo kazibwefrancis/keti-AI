@@ -5,9 +5,8 @@
     <header class="topbar">
         <div class="brand">
             <div class="brand-mark">
-                <img src="https://i.pravatar.cc/64?img=47" alt="Keti AI" style="width:100%;height:100%;object-fit:cover;">
+                <img src="{{ asset('assets/keti-logo.png') }}" alt="Keti AI">
             </div>
-            <div class="brand-name">Keti AI</div>
         </div>
         <nav class="pill-nav">
             <a class="pill-nav__link" href="/">Home</a>
@@ -68,26 +67,13 @@
                             <p class="pub-region__desc">High mortality with a <strong>33%, 7 year survival</strong> in Sub-Saharan regions. 77% of patients face catastrophic health expenditure due to <em>"trial and error"</em> costs.</p>
                         </div>
                         <div class="pub-region__map">
-                            {{-- Africa SVG --}}
-                            <svg viewBox="0 0 220 260" fill="none" xmlns="http://www.w3.org/2000/svg" class="map-svg">
-                                <path d="M60 10 C40 12 28 28 22 48 C14 72 18 95 24 115 C30 138 28 155 32 172 C38 196 52 218 70 238 C82 252 98 262 112 255 C128 248 136 228 148 210 C162 188 178 168 185 145 C192 120 188 92 178 70 C168 48 150 32 132 20 C118 10 98 6 80 8 Z" fill="#4ade80" stroke="#16a34a" stroke-width="2"/>
-                                <circle cx="145" cy="55" r="12" fill="#f43f5e" stroke="white" stroke-width="2"/>
-                                <circle cx="145" cy="55" r="6" fill="white"/>
-                                <path d="M145 40 C145 40 133 52 133 58 C133 65 138.4 71 145 71 C151.6 71 157 65 157 58 C157 52 145 40 145 40Z" fill="#f43f5e" opacity=".3"/>
-                            </svg>
+                            <img src="{{ asset('assets/africa-map.png') }}" alt="Africa map" style="width:180px;height:auto;object-fit:contain;flex-shrink:0;">
                         </div>
                     </div>
 
                     <div class="pub-region pub-region--reverse">
                         <div class="pub-region__map">
-                            {{-- Middle East SVG --}}
-                            <svg viewBox="0 0 220 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="map-svg">
-                                <path d="M30 60 C28 42 40 28 58 22 C76 16 98 18 118 24 C138 30 158 38 172 52 C186 66 190 84 186 102 C182 120 168 134 152 144 C134 154 112 158 92 152 C70 146 50 132 38 114 C26 96 24 78 28 62 Z" fill="#86efac" stroke="#16a34a" stroke-width="2"/>
-                                <circle cx="85" cy="75" r="14" fill="#f43f5e" stroke="white" stroke-width="2.5"/>
-                                <circle cx="85" cy="75" r="7" fill="white"/>
-                                <path d="M85 56 C85 56 70 70 70 78 C70 87 77 94 85 94 C93 94 100 87 100 78 C100 70 85 56 85 56Z" fill="#f43f5e" opacity=".3"/>
-                                <circle cx="150" cy="55" r="5" fill="#f43f5e" stroke="white" stroke-width="1.5" opacity=".6"/>
-                            </svg>
+                            <img src="{{ asset('assets/middle-east-map.png') }}" alt="Middle East map" style="width:180px;height:auto;object-fit:contain;flex-shrink:0;">
                         </div>
                         <div class="pub-region__text">
                             <h3 class="pub-region__name pub-region__name--mideast">Middle East</h3>
