@@ -51,8 +51,8 @@
                 <h1>Prediction of Breast Cancer Chemotherapy Resistance</h1>
                 <p class="subtitle">Accurate . Confidence - Aware . Clinically Trusted</p>
                 <div class="cta">
-                    <a class="btn btn-primary" href="#">Explore Platform</a>
-                    <a class="btn btn-ghost" href="#">Request Demo</a>
+                    <a class="btn btn-primary" href="/platform">Explore Platform</a>
+                    <a class="btn btn-ghost" href="/about#contact">Request Demo</a>
                 </div>
                 <div class="social-proof">
                     <div class="rating">
