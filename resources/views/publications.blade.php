@@ -174,6 +174,45 @@
             </div>
         </section>
 
+        {{-- ── Full Publication Request ────────────────────────── --}}
+        <section class="pub-request">
+            <div class="pub-section-inner pub-section-inner--narrow">
+                <h2 class="pub-section-title">Request the Full Publications</h2>
+                <p class="pub-section-body">
+                    Our research publications are 50–100 pages of in-depth analysis, data and clinical methodology. Enter your details below and we will send you access.
+                </p>
+
+                @if(session('pub_request_sent'))
+                    <div class="pub-request__success">
+                        Thank you! Your request has been received. We will be in touch shortly.
+                    </div>
+                @else
+                    <form class="pub-request__form" method="POST" action="/publications/request">
+                        @csrf
+                        <div class="pub-request__field">
+                            <label class="pub-request__label" for="req-name">Full Name</label>
+                            <input class="pub-request__input @error('name') pub-request__input--error @enderror"
+                                   id="req-name" type="text" name="name"
+                                   value="{{ old('name') }}" placeholder="Your full name" required>
+                            @error('name')
+                                <span class="pub-request__error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="pub-request__field">
+                            <label class="pub-request__label" for="req-email">Email Address</label>
+                            <input class="pub-request__input @error('email') pub-request__input--error @enderror"
+                                   id="req-email" type="email" name="email"
+                                   value="{{ old('email') }}" placeholder="you@example.com" required>
+                            @error('email')
+                                <span class="pub-request__error">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <button class="pub-request__btn" type="submit">Send Request</button>
+                    </form>
+                @endif
+            </div>
+        </section>
+
     </main>
 </div>
 @endsection
