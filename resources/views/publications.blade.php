@@ -144,6 +144,7 @@
                             <li>Vanderpuye, V et al (2017) Cancer care in Africa, challenges and opportunities. <em>The Lancet Oncology.</em></li>
                             <li>WHO (2021). Ethics and governance of artificial intelligence for health, World Health Organization.</li>
                         </ul>
+                        <button class="doc-request-btn" data-title="INTERPRETABLE AI FOR CHEMOTHERAPY RESPONSE IN BREAST CANCER: AN AFRICAN PERSPECTIVE">Request Full Publication</button>
                     </div>
                 </div>
 
@@ -168,51 +169,268 @@
                             <li>Research Analysis by Dr. Shamim Nabuuma Kaliisa (2026) Chil AI Lab &amp; Chil Femtech Center.</li>
                             <li>Scientific Facts: Chemotherapy Resistance in Breast Cancer Summary. Chil Group Precision Oncology Division.</li>
                         </ul>
+                        <button class="doc-request-btn" data-title="INVESTIGATING CHEMOTHERAPY RESISTANCE IN BREAST CANCER">Request Full Publication</button>
                     </div>
                 </div>
 
             </div>
         </section>
 
-        {{-- ── Full Publication Request ────────────────────────── --}}
-        <section class="pub-request">
-            <div class="pub-section-inner pub-section-inner--narrow">
-                <h2 class="pub-section-title">Request the Full Publications</h2>
-                <p class="pub-section-body">
-                    Our research publications are 50–100 pages of in-depth analysis, data and clinical methodology. Enter your details below and we will send you access.
-                </p>
-
-                @if(session('pub_request_sent'))
-                    <div class="pub-request__success">
-                        Thank you! Your request has been received. We will be in touch shortly.
-                    </div>
-                @else
-                    <form class="pub-request__form" method="POST" action="/publications/request">
-                        @csrf
-                        <div class="pub-request__field">
-                            <label class="pub-request__label" for="req-name">Full Name</label>
-                            <input class="pub-request__input @error('name') pub-request__input--error @enderror"
-                                   id="req-name" type="text" name="name"
-                                   value="{{ old('name') }}" placeholder="Your full name" required>
-                            @error('name')
-                                <span class="pub-request__error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="pub-request__field">
-                            <label class="pub-request__label" for="req-email">Email Address</label>
-                            <input class="pub-request__input @error('email') pub-request__input--error @enderror"
-                                   id="req-email" type="email" name="email"
-                                   value="{{ old('email') }}" placeholder="you@example.com" required>
-                            @error('email')
-                                <span class="pub-request__error">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <button class="pub-request__btn" type="submit">Send Request</button>
-                    </form>
-                @endif
-            </div>
-        </section>
-
     </main>
+
+    {{-- ── Publication Request Modal ──────────────────────── --}}
+    <div id="pub-modal-overlay" class="pub-modal-overlay" aria-modal="true" role="dialog" hidden>
+        <div class="pub-modal">
+            <button class="pub-modal__close" id="pub-modal-close" aria-label="Close">&times;</button>
+            <h2 class="pub-modal__pub-title" id="pub-modal-pub-title"></h2>
+            <p class="pub-modal__desc">Enter your details below and we will send you access to the full publication.</p>
+
+            <div id="pub-modal-success" class="pub-modal__success" hidden>
+                Thank you! Your request has been received. We will be in touch shortly.
+            </div>
+
+            <form id="pub-modal-form" class="pub-modal__form" novalidate>
+                <input type="hidden" id="pub-modal-pub-input" name="publication">
+                <div class="pub-modal__field">
+                    <label class="pub-modal__label" for="pub-modal-name">Full Name</label>
+                    <input class="pub-modal__input" id="pub-modal-name" type="text" name="name" placeholder="Your full name" required>
+                    <span class="pub-modal__error" id="pub-modal-name-err"></span>
+                </div>
+                <div class="pub-modal__field">
+                    <label class="pub-modal__label" for="pub-modal-email">Email Address</label>
+                    <input class="pub-modal__input" id="pub-modal-email" type="email" name="email" placeholder="you@example.com" required>
+                    <span class="pub-modal__error" id="pub-modal-email-err"></span>
+                </div>
+                <button class="pub-modal__btn" type="submit" id="pub-modal-submit">Send Request</button>
+            </form>
+        </div>
+    </div>
+
 </div>
+
+<style>
+.doc-request-btn {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 0.65rem 1.4rem;
+    background: #16a34a;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: background 0.18s;
+}
+.doc-request-btn:hover { background: #15803d; }
+
+.pub-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+.pub-modal-overlay[hidden] { display: none; }
+
+.pub-modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2.5rem 2rem 2rem;
+    width: 100%;
+    max-width: 480px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.pub-modal__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+.pub-modal__close:hover { color: #111; background: #f3f4f6; }
+
+.pub-modal__pub-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 0.5rem;
+    padding-right: 2rem;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.pub-modal__desc {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0 0 1.5rem;
+}
+
+.pub-modal__success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    border-radius: 6px;
+    padding: 0.875rem 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+.pub-modal__success[hidden] { display: none; }
+
+.pub-modal__form { display: flex; flex-direction: column; gap: 1rem; }
+
+.pub-modal__field { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.pub-modal__label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.pub-modal__input {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 0.6rem 0.875rem;
+    font-size: 0.9rem;
+    color: #111827;
+    outline: none;
+    transition: border-color 0.15s;
+}
+.pub-modal__input:focus { border-color: #16a34a; box-shadow: 0 0 0 2px rgba(22,163,74,0.15); }
+.pub-modal__input--error { border-color: #ef4444; }
+
+.pub-modal__error {
+    font-size: 0.78rem;
+    color: #ef4444;
+    min-height: 1em;
+}
+
+.pub-modal__btn {
+    margin-top: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    background: #16a34a;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.18s;
+    align-self: flex-start;
+}
+.pub-modal__btn:hover:not(:disabled) { background: #15803d; }
+.pub-modal__btn:disabled { opacity: 0.6; cursor: not-allowed; }
+</style>
+
+<script>
+(function () {
+    const overlay  = document.getElementById('pub-modal-overlay');
+    const closeBtn = document.getElementById('pub-modal-close');
+    const pubTitle = document.getElementById('pub-modal-pub-title');
+    const pubInput = document.getElementById('pub-modal-pub-input');
+    const form     = document.getElementById('pub-modal-form');
+    const success  = document.getElementById('pub-modal-success');
+    const submitBtn = document.getElementById('pub-modal-submit');
+    const nameInput  = document.getElementById('pub-modal-name');
+    const emailInput = document.getElementById('pub-modal-email');
+    const nameErr    = document.getElementById('pub-modal-name-err');
+    const emailErr   = document.getElementById('pub-modal-email-err');
+
+    function openModal(title) {
+        pubTitle.textContent = title;
+        pubInput.value = title;
+        success.hidden = true;
+        form.hidden = false;
+        form.reset();
+        nameErr.textContent = '';
+        emailErr.textContent = '';
+        overlay.hidden = false;
+        nameInput.focus();
+    }
+
+    function closeModal() {
+        overlay.hidden = true;
+    }
+
+    document.querySelectorAll('.doc-request-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            openModal(btn.dataset.title);
+        });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !overlay.hidden) closeModal();
+    });
+
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        nameErr.textContent = '';
+        emailErr.textContent = '';
+
+        const name  = nameInput.value.trim();
+        const email = emailInput.value.trim();
+        const publication = pubInput.value;
+
+        let valid = true;
+        if (!name) { nameErr.textContent = 'Full name is required.'; valid = false; }
+        if (!email) { emailErr.textContent = 'Email address is required.'; valid = false; }
+
+        if (!valid) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+
+        try {
+            const res = await fetch('/publications/request', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json',
+                },
+                body: JSON.stringify({ name, email, publication }),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                form.hidden = true;
+                success.hidden = false;
+            } else {
+                if (data.errors) {
+                    if (data.errors.name)  nameErr.textContent = data.errors.name[0];
+                    if (data.errors.email) emailErr.textContent = data.errors.email[0];
+                } else {
+                    nameErr.textContent = 'Something went wrong. Please try again.';
+                }
+            }
+        } catch (err) {
+            nameErr.textContent = 'Network error. Please try again.';
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Request';
+        }
+    });
+})();
+</script>
+
 @endsection

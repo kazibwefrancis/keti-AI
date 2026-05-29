@@ -136,23 +136,26 @@ Route::post('/about/contact', function (Request $request) {
 
 Route::post('/publications/request', function (Request $request) {
     $request->validate([
-        'name'  => 'required|string|max:255',
-        'email' => 'required|email|max:255',
+        'name'        => 'required|string|max:255',
+        'email'       => 'required|email|max:255',
+        'publication' => 'nullable|string|max:500',
     ]);
 
-    $name  = $request->input('name');
-    $email = $request->input('email');
+    $name        = $request->input('name');
+    $email       = $request->input('email');
+    $publication = $request->input('publication', 'Not specified');
 
     Mail::raw(
         "Full Publication Request\n\n"
-        . "{$name} ({$email}) is requesting access to the full 50–100 page publications from the Keti AI website.\n\n"
+        . "Publication: {$publication}\n\n"
+        . "{$name} ({$email}) is requesting access to the full publication from the Keti AI website.\n\n"
         . "Please follow up with them at: {$email}",
-        function ($message) use ($name, $email) {
+        function ($message) use ($name, $email, $publication) {
             $message->to('info@ketiai.com')
                     ->replyTo($email, $name)
-                    ->subject("Full Publication Request – {$name}");
+                    ->subject("Full Publication Request – {$publication}");
         }
     );
 
-    return back()->with('pub_request_sent', true);
+    return response()->json(['status' => 'sent']);
 });
